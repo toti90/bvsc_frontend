@@ -1,0 +1,7 @@
+<p>Select Day</p>
+<button *ngFor='let day of nextFiveDays' (click)='findDay(day)'>{{day | makeHungarianDay}}</button>
+<p>Select Starting Hour</p>
+<button *ngFor='let hour of hours' (click)='addStartHour(hour)'>{{hour}}</button>
+<p>Select Hall</p>
+<button *ngFor='let hall of halls' (click)='selectHall(hall)'>{{hall}}</button>
+<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall'></app-big-hall>
