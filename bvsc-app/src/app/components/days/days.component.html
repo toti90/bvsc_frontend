@@ -1,7 +1,17 @@
-<p>Select Day</p>
-<button *ngFor='let day of nextFiveDays' (click)='findDay(day)'>{{day | makeHungarianDay}}</button>
-<p>Select Starting Hour</p>
-<button *ngFor='let hour of hours' (click)='addStartHour(hour)'>{{hour}}</button>
-<p>Select Hall</p>
-<button *ngFor='let hall of halls' (click)='selectHall(hall)'>{{hall}}</button>
-<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall'></app-big-hall>
+<div>
+  <p>Select Day</p>
+  <button *ngFor='let day of nextFiveDays' (click)='findDay(day)' [ngClass]="day===this.selectedDayClass ? 'selected':''">{{day | makeHungarianDay}}</button>
+</div>
+<div *ngIf="this.selectedDay">
+  <p>Select Starting Hour</p>
+  <button *ngFor='let hour of hours' (click)='addStartHour(hour)' [ngClass]="hour===this.selectedHourClass ? 'selected':''">{{hour}}</button>
+</div>
+<div *ngIf="this.selectedDay && this.selectedHour">
+  <p>Select Hall</p>
+  <button *ngFor='let hall of halls' (click)='selectHall(hall)' [ngClass]="hall===this.selectedHall ? 'selected':''">{{hall}}</button>
+</div>
+<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' *ngIf="this.selectedHall && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)"></app-big-hall>
+<div *ngIf='selectedTable'>
+  <p>Your selected time is: {{selectedHour | date:'short'}}</p>
+  <p>Table number {{selectedTable}} in the {{this.selectedHall}}</p>
+</div>

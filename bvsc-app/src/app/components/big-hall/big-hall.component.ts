@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-big-hall',
@@ -10,6 +10,8 @@ export class BigHallComponent implements OnInit {
   public tables = [9,8,7,6,5,4,3,2,1];
   @Input() selectedHour;
   @Input() selectedHall;
+  @Output() selectedTable = new EventEmitter<number>();
+  private selectedTableClass: number;
 
   constructor() { }
 
@@ -17,9 +19,8 @@ export class BigHallComponent implements OnInit {
   }
 
   selectTable(tableNumber: number) {
-    console.log(tableNumber);
-    console.log(this.selectedHour);
-    console.log(this.selectedHall);
+    this.selectedTableClass = tableNumber;
+    this.selectedTable.emit(tableNumber);
   }
 
 }
