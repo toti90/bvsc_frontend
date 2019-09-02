@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { DaysComponent } from './components/days/days.component';
 import { MakeHungarianDayPipe } from './pipes/make-hungarian-day.pipe';
 import { BigHallComponent } from './components/big-hall/big-hall.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule, MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,9 @@ import { BigHallComponent } from './components/big-hall/big-hall.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

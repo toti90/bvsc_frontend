@@ -1,6 +1,12 @@
 <div>
   <p>Select Day</p>
   <button *ngFor='let day of nextFiveDays' (click)='findDay(day)' [ngClass]="day===this.selectedDayClass ? 'selected':''">{{day | makeHungarianDay}}</button>
+  <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
+      (dateInput)="addEvent($event)" autocomplete="off" [min]="minDate" [max]="maxDate" #dateInput disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
+  </mat-form-field>
 </div>
 <div *ngIf="this.selectedDay">
   <p>Select Starting Hour</p>

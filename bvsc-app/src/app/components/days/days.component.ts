@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material';
 
 @Component({
   selector: 'app-days',
@@ -16,6 +17,9 @@ export class DaysComponent implements OnInit {
   private selectedHourClass: number;
   private selectedHall: string;
   private selectedTable: number;
+  private minDate = new Date()
+  private maxDate = new Date(new Date().getTime() + (24 * 60 * 60 * 1000 * 14));
+  @ViewChild('dateInput', {static:true}) dateInput: ElementRef;
 
 
   constructor() { }
@@ -36,6 +40,7 @@ export class DaysComponent implements OnInit {
   }
 
   findDay(timestamp) {
+    this.dateInput.nativeElement.value = '';
     this.selectedDayClass = timestamp;
     const time = new Date(timestamp);
     const day = time.getDate();
@@ -54,5 +59,11 @@ export class DaysComponent implements OnInit {
 
   selectHall(hall: string) {
     this.selectedHall = hall;
+  }
+  
+
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    this.selectedDayClass = null;
+    this.selectedDay = event.value;
   }
 }
