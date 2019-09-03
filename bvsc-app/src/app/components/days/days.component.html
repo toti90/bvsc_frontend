@@ -10,13 +10,18 @@
 </div>
 <div *ngIf="this.selectedDay">
   <p>Select Starting Hour</p>
-  <button *ngFor='let hour of hours' (click)='addStartHour(hour)' [ngClass]="hour===this.selectedHourClass ? 'selected':''">{{hour}}</button>
+  <button *ngFor='let hour of favouritehours' (click)='addStartHour(hour)' [ngClass]="hour===this.selectedHourClass ? 'selected':''">{{hour | numberHourConverter}}</button>
+  <button mat-button [matMenuTriggerFor]="menu">További időpontok</button>
+  <mat-menu #menu="matMenu">
+  <button mat-menu-item *ngFor='let hour of hours' (click)='addStartHour(hour)' [ngClass]="hour===this.selectedHourClass ? 'selected':''">{{hour | numberHourConverter}}</button>
+</mat-menu>
 </div>
 <div *ngIf="this.selectedDay && this.selectedHour">
   <p>Select Hall</p>
-  <button *ngFor='let hall of halls' (click)='selectHall(hall)' [ngClass]="hall===this.selectedHall ? 'selected':''">{{hall}}</button>
+  <button *ngFor='let hall of halls' (click)='selectHall(hall)' [ngClass]="hall===this.selectedHall ? 'selected':''" >{{hall}}</button>
 </div>
-<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' *ngIf="this.selectedHall && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)"></app-big-hall>
+<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' *ngIf="this.selectedHall === 'Nagy Terem' && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)" ></app-big-hall>
+<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' *ngIf="this.selectedHall === 'Kis Terem' && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)"></app-big-hall>
 <div *ngIf='selectedTable'>
   <p>Your selected time is: {{selectedHour | date:'short'}}</p>
   <p>Table number {{selectedTable}} in the {{this.selectedHall}}</p>

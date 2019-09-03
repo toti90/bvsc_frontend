@@ -5,10 +5,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DaysComponent } from './components/days/days.component';
-import { MakeHungarianDayPipe } from './pipes/make-hungarian-day.pipe';
+import { MakeHungarianDayPipe } from './pipes/makeHungarian/make-hungarian-day.pipe';
+import { NumberHourConverterPipe } from './pipes/numberHourConverter/number-hour-converter.pipe';
 import { BigHallComponent } from './components/big-hall/big-hall.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule, MatNativeDateModule } from '@angular/material';
+import { MatInputModule, MatNativeDateModule, MatMenuModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { MatInputModule, MatNativeDateModule } from '@angular/material';
     DaysComponent,
     MakeHungarianDayPipe,
     BigHallComponent,
+    NumberHourConverterPipe
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,8 @@ import { MatInputModule, MatNativeDateModule } from '@angular/material';
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

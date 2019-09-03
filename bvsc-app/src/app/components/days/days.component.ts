@@ -9,6 +9,7 @@ import { MatDatepickerInputEvent } from '@angular/material';
 export class DaysComponent implements OnInit {
 
   public nextFiveDays = [];
+  public favouritehours = [18, 19, 20];
   public hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
   public halls = ['Nagy Terem', 'Kis Terem'];
   private selectedDay: Date;
@@ -17,9 +18,11 @@ export class DaysComponent implements OnInit {
   private selectedHourClass: number;
   private selectedHall: string;
   private selectedTable: number;
-  private minDate = new Date()
+
+  private minDate = new Date();
   private maxDate = new Date(new Date().getTime() + (24 * 60 * 60 * 1000 * 14));
-  @ViewChild('dateInput', {static:true}) dateInput: ElementRef;
+  @ViewChild('dateInput', {static : true}) dateInput: ElementRef;
+ 
 
 
   constructor() { }
@@ -40,6 +43,10 @@ export class DaysComponent implements OnInit {
   }
 
   findDay(timestamp) {
+    this.selectedHour = null;
+    this.selectedHourClass = null;
+    this.selectedHall = null;
+    this.selectedTable = null;
     this.dateInput.nativeElement.value = '';
     this.selectedDayClass = timestamp;
     const time = new Date(timestamp);
@@ -53,12 +60,15 @@ export class DaysComponent implements OnInit {
   }
 
   addStartHour(hour: number) {
+    this.selectedHall = null;
+    this.selectedTable = null;
     this.selectedHourClass = hour;
     this.selectedHour = new Date((this.selectedDay.getTime() + (hour) * 3600000));
   }
 
   selectHall(hall: string) {
     this.selectedHall = hall;
+    this.selectedTable = null;
   }
   
 
