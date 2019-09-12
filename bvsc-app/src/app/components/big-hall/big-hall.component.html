@@ -1,7 +1,7 @@
 <p>Select Table</p>
 <div class="hall">
   <div class="place" *ngFor="let table of tables">
-    <div class="table" (click)="selectTable(table)" [ngClass]="{'selected': this.selectedTableClass === table, 
+    <div class="table" (click)="selectTable(table)" [ngClass]="{'selected': this.selectedTableClass.includes(table), 
   'booked': this.bookedTablesHall.includes(table)}">{{table}}</div>
   </div>
 </div>

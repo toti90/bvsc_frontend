@@ -18,7 +18,7 @@ export class DaysComponent implements OnInit {
   private selectedHour: Date;
   private selectedHourClass: number;
   private selectedHall: string;
-  private selectedTable: number;
+  private selectedTable: number[];
 
   private minDate = new Date();
   private maxDate = new Date(new Date().getTime() + (24 * 60 * 60 * 1000 * 14));
@@ -44,6 +44,9 @@ export class DaysComponent implements OnInit {
 
   selectTable(tableNumber) {
     this.selectedTable = tableNumber;
+    if (this.selectedTable.length === 0) {
+      this.selectedTable = null
+    }
   }
 
   findDay(timestamp, datepicker: boolean) {
@@ -64,7 +67,7 @@ export class DaysComponent implements OnInit {
     this.selectedDay = new Date(`${month + 1}-${day}-${year}`);
     this.appointmentsService.getAppointmentForSelectedDay(this.selectedDay).subscribe(response => {
       response['appointment'].forEach(hour => {
-        if (hour['numberOfTablesBooked'] === 6) { this.fullHours.push(new Date(hour.time).getUTCHours()); }
+        if (hour['numberOfTablesBooked'] === 18) { this.fullHours.push(new Date(hour.time).getUTCHours()); }
       });
     })
   }
@@ -82,12 +85,12 @@ export class DaysComponent implements OnInit {
       response['appointment'].forEach(hall => {
         if (hall['isBigHall'] === true) {
           this.bookedTablesBigHall = hall['tables'];
-          if (hall['numberOfBookedTables'] === 3) {
+          if (hall['numberOfBookedTables'] === 9) {
             this.fullHall.push('Nagy Terem');
           }
         } else {
           this.bookedTablesSmallHall = hall['tables'];
-          if (hall['numberOfBookedTables'] === 3) {
+          if (hall['numberOfBookedTables'] === 9) {
             this.fullHall.push('Kis Terem');
           }
         }
@@ -104,5 +107,18 @@ export class DaysComponent implements OnInit {
   addEvent(event: MatDatepickerInputEvent<Date>) {
     this.selectedDayClass = null;
     this.findDay(event.value.getTime(), true);
+  }
+
+  confirmBooking() {
+    let finishTime = new Date(this.selectedHour);
+    finishTime.setHours(this.selectedHour.getHours() + 1);
+    const isBigHall = this.selectedHall === 'Nagy Terem' ? true : false;
+    const appointment = {
+      from: this.selectedHour,
+      to: finishTime,
+      bigHall: isBigHall,
+      table: this.selectedTable
+    }
+    this.appointmentsService.postAppointment(appointment);
   }
 }

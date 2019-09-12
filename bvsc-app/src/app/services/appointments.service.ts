@@ -21,4 +21,10 @@ export class AppointmentsService {
       headers: { 'content-type': 'application/json' },
     })
   }
+
+  postAppointment(obj) {
+    return this.http.post(`${environment.serverURL}/appointments`, obj, {
+      headers: { 'content-type': 'application/json' }
+    }).subscribe(response => console.log(response))
+  }
 }

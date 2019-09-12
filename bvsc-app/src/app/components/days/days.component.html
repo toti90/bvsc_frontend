@@ -35,5 +35,8 @@
 <app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' [bookedTablesHall]='bookedTablesSmallHall' *ngIf="this.selectedHall === 'Kis Terem' && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)"></app-big-hall>
 <div *ngIf='selectedTable'>
   <p>Your selected time is: {{selectedHour | date:'short'}}</p>
-  <p>Table number {{selectedTable}} in the {{this.selectedHall}}</p>
+  <p>Table number</p> 
+  <p *ngFor="let selTable of selectedTable">{{selTable}}</p>
+  <p> in the {{this.selectedHall}}</p>
+  <button (click)="confirmBooking()">Confirm</button>
 </div>
