@@ -1,7 +1,50 @@
+.selection-template {
+  height: 50px;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .number {
+    width: 10%;
+    height: 80%;
+    background-color: rgb(102, 97, 182);
+    border-radius: 150px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+
+    
+  }
+
+  .sentences {
+    width: 80%;
+    height: 100%;
+    padding-left: 5%;
+
+    p {
+      font-size: 1.2em
+    }
+  }
+}
+
 .selected {
-  background-color: red;
+  background-color: grey;
 }
 
 .full {
-  background-color: grey;
+  background-color: red;
+}
+
+button {
+  height: 35px;
+  min-width: 70px;
+  margin-right:2px;
+  margin-top: 15px;
+  outline: none;
+}
+
+mat-form-field {
+  margin-left: 50px;
 }

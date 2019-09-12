@@ -32,3 +32,35 @@
   }
 }
 
+.selection-template {
+  height: 50px;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:30px;
+
+  .number {
+    width: 10%;
+    height: 80%;
+    background-color: rgb(102, 97, 182);
+    border-radius: 150px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+
+    
+  }
+
+  .sentences {
+    width: 80%;
+    height: 100%;
+    padding-left: 5%;
+
+    p {
+      font-size: 1.2em
+    }
+  }
+}
+

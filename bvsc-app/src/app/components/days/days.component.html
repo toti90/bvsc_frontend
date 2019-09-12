@@ -1,5 +1,10 @@
 <div>
-  <p>Select Day</p>
+  <div class="selection-template">
+    <div class="number">1</div>
+    <div class="sentences">
+      <p>Válasszon egy napot!</p>
+    </div>
+  </div>
   <button *ngFor='let day of nextFiveDays' (click)='findDay(day, false)' [ngClass]="day===this.selectedDayClass ? 'selected':''">{{day | makeHungarianDay}}</button>
   <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
@@ -7,9 +12,15 @@
       <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
       <mat-datepicker #picker disabled="false"></mat-datepicker>
   </mat-form-field>
+  <p *ngIf="selectedDay">Kiválasztott nap: {{selectedDay | date:'shortDate'}}</p>
 </div>
 <div *ngIf="this.selectedDay">
-  <p>Select Starting Hour</p>
+    <div class="selection-template">
+        <div class="number">2</div>
+        <div class="sentences">
+          <p>Válasszon egy kezdési időpontot!</p>
+        </div>
+      </div>
   <button *ngFor='let hour of favouritehours' (click)='addStartHour(hour)' 
   [ngClass]="{ 
     'selected': this.selectedHourClass === hour,
@@ -25,7 +36,12 @@
 </mat-menu>
 </div>
 <div *ngIf="this.selectedDay && this.selectedHour">
-  <p>Select Hall</p>
+    <div class="selection-template">
+        <div class="number">3</div>
+        <div class="sentences">
+          <p>Válasszon egy termet!</p>
+        </div>
+      </div>
   <button *ngFor='let hall of halls' (click)='selectHall(hall)' [ngClass]="{
     'selected': this.selectedHall === hall,
     'full': this.fullHall.includes(hall)
