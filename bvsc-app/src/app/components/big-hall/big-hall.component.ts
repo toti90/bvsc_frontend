@@ -10,13 +10,13 @@ export class BigHallComponent implements OnInit {
   private tables = [9, 8, 7, 6, 5, 4, 3, 2, 1];
   @Input() selectedHour;
   @Input() selectedHall;
+  @Input() bookedTablesHall;
   @Output() selectedTable = new EventEmitter<number>();
   private selectedTableClass: number;
 
   constructor() { }
 
   ngOnInit() {
-    
   }
 
   selectTable(tableNumber: number) {

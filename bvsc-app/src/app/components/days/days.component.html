@@ -1,6 +1,6 @@
 <div>
   <p>Select Day</p>
-  <button *ngFor='let day of nextFiveDays' (click)='findDay(day)' [ngClass]="day===this.selectedDayClass ? 'selected':''">{{day | makeHungarianDay}}</button>
+  <button *ngFor='let day of nextFiveDays' (click)='findDay(day, false)' [ngClass]="day===this.selectedDayClass ? 'selected':''">{{day | makeHungarianDay}}</button>
   <mat-form-field>
       <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
       (dateInput)="addEvent($event)" autocomplete="off" [min]="minDate" [max]="maxDate" #dateInput disabled>
@@ -10,18 +10,29 @@
 </div>
 <div *ngIf="this.selectedDay">
   <p>Select Starting Hour</p>
-  <button *ngFor='let hour of favouritehours' (click)='addStartHour(hour)' [ngClass]="hour===this.selectedHourClass ? 'selected':''">{{hour | numberHourConverter}}</button>
+  <button *ngFor='let hour of favouritehours' (click)='addStartHour(hour)' 
+  [ngClass]="{ 
+    'selected': this.selectedHourClass === hour,
+    'full': this.fullHours.includes(hour)
+  }">{{hour | numberHourConverter}}</button>
   <button mat-button [matMenuTriggerFor]="menu">További időpontok</button>
   <mat-menu #menu="matMenu">
-  <button mat-menu-item *ngFor='let hour of hours' (click)='addStartHour(hour)' [ngClass]="hour===this.selectedHourClass ? 'selected':''">{{hour | numberHourConverter}}</button>
+  <button mat-menu-item *ngFor='let hour of hours' (click)='addStartHour(hour)' 
+  [ngClass]="{
+    'selected': this.selectedHourClass === hour,
+    'full': this.fullHours.includes(hour)
+  }">{{hour | numberHourConverter}}</button>
 </mat-menu>
 </div>
 <div *ngIf="this.selectedDay && this.selectedHour">
   <p>Select Hall</p>
-  <button *ngFor='let hall of halls' (click)='selectHall(hall)' [ngClass]="hall===this.selectedHall ? 'selected':''" >{{hall}}</button>
+  <button *ngFor='let hall of halls' (click)='selectHall(hall)' [ngClass]="{
+    'selected': this.selectedHall === hall,
+    'full': this.fullHall.includes(hall)
+  }" >{{hall}}</button>
 </div>
-<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' *ngIf="this.selectedHall === 'Nagy Terem' && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)" ></app-big-hall>
-<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' *ngIf="this.selectedHall === 'Kis Terem' && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)"></app-big-hall>
+<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' [bookedTablesHall]='bookedTablesBigHall' *ngIf="this.selectedHall === 'Nagy Terem' && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)" ></app-big-hall>
+<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' [bookedTablesHall]='bookedTablesSmallHall' *ngIf="this.selectedHall === 'Kis Terem' && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)"></app-big-hall>
 <div *ngIf='selectedTable'>
   <p>Your selected time is: {{selectedHour | date:'short'}}</p>
   <p>Table number {{selectedTable}} in the {{this.selectedHall}}</p>

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material';
+import { AppointmentsService } from 'src/app/services/appointments.service';
 
 @Component({
   selector: 'app-days',
@@ -21,11 +22,14 @@ export class DaysComponent implements OnInit {
 
   private minDate = new Date();
   private maxDate = new Date(new Date().getTime() + (24 * 60 * 60 * 1000 * 14));
-  @ViewChild('dateInput', {static : true}) dateInput: ElementRef;
- 
+  @ViewChild('dateInput', { static: true }) dateInput: ElementRef;
 
+  private fullHours = [];
+  private fullHall = [];
+  private bookedTablesSmallHall = [];
+  private bookedTablesBigHall = [];
 
-  constructor() { }
+  constructor(private appointmentsService: AppointmentsService) { }
 
   ngOnInit() {
     this.generateNextFiveDays();
@@ -42,38 +46,63 @@ export class DaysComponent implements OnInit {
     this.selectedTable = tableNumber;
   }
 
-  findDay(timestamp) {
+  findDay(timestamp, datepicker: boolean) {
     this.selectedHour = null;
     this.selectedHourClass = null;
     this.selectedHall = null;
     this.selectedTable = null;
-    this.dateInput.nativeElement.value = '';
+    this.fullHours = [];
+    if (!datepicker) {
+
+      this.dateInput.nativeElement.value = '';
+    }
     this.selectedDayClass = timestamp;
     const time = new Date(timestamp);
     const day = time.getDate();
     const month = time.getMonth();
     const year = time.getFullYear();
     this.selectedDay = new Date(`${month + 1}-${day}-${year}`);
-    //Call service to call backend api with selectedDay
-
-    //Get response where you see the selected day's hours with label full: true or false;
+    this.appointmentsService.getAppointmentForSelectedDay(this.selectedDay).subscribe(response => {
+      response['appointment'].forEach(hour => {
+        if (hour['numberOfTablesBooked'] === 6) { this.fullHours.push(new Date(hour.time).getUTCHours()); }
+      });
+    })
   }
 
   addStartHour(hour: number) {
     this.selectedHall = null;
     this.selectedTable = null;
     this.selectedHourClass = hour;
-    this.selectedHour = new Date((this.selectedDay.getTime() + (hour) * 3600000));
+    this.fullHall = [];
+    this.bookedTablesBigHall = [];
+    this.bookedTablesSmallHall = [];
+    this.selectedHour = new Date(this.selectedDay);
+    this.selectedHour.setHours(this.selectedDay.getHours() + hour - (this.selectedDay.getTimezoneOffset() / 60));
+    this.appointmentsService.getAppointmentForSelectedHour(this.selectedHour).subscribe(response => {
+      response['appointment'].forEach(hall => {
+        if (hall['isBigHall'] === true) {
+          this.bookedTablesBigHall = hall['tables'];
+          if (hall['numberOfBookedTables'] === 3) {
+            this.fullHall.push('Nagy Terem');
+          }
+        } else {
+          this.bookedTablesSmallHall = hall['tables'];
+          if (hall['numberOfBookedTables'] === 3) {
+            this.fullHall.push('Kis Terem');
+          }
+        }
+      })
+    })
   }
 
   selectHall(hall: string) {
     this.selectedHall = hall;
     this.selectedTable = null;
   }
-  
+
 
   addEvent(event: MatDatepickerInputEvent<Date>) {
     this.selectedDayClass = null;
-    this.selectedDay = event.value;
+    this.findDay(event.value.getTime(), true);
   }
 }

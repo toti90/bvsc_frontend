@@ -10,6 +10,7 @@ import { NumberHourConverterPipe } from './pipes/numberHourConverter/number-hour
 import { BigHallComponent } from './components/big-hall/big-hall.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule, MatNativeDateModule, MatMenuModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatInputModule, MatNativeDateModule, MatMenuModule } from '@angular/mat
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
-    MatMenuModule
+    MatMenuModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
