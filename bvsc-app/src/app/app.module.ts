@@ -11,6 +11,11 @@ import { BigHallComponent } from './components/big-hall/big-hall.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule, MatNativeDateModule, MatMenuModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
+import {MatIconModule} from '@angular/material/icon';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { StepperHeadComponent } from './components/stepper-head/stepper-head.component';
+
+
 
 
 @NgModule({
@@ -19,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     DaysComponent,
     MakeHungarianDayPipe,
     BigHallComponent,
-    NumberHourConverterPipe
+    NumberHourConverterPipe,
+    StepperHeadComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +35,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatNativeDateModule,
     MatMenuModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

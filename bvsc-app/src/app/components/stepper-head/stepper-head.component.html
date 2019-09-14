@@ -1,0 +1,13 @@
+<div class="main_container">
+  <div class="selection-template">
+    <div class="number_container">
+      <div class="number">{{ stepNumber }}</div>
+    </div>
+    <div class="sentences">
+      <p *ngIf="!selectedValue">{{ beforeStepString }}</p>
+      <p *ngIf="selectedValue">
+        {{ afterStepString }} {{ selectedValue }}
+      </p>
+    </div>
+  </div>
+</div>

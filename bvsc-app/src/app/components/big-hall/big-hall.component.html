@@ -1,9 +1,3 @@
-<div class="selection-template">
-    <div class="number">4</div>
-    <div class="sentences">
-      <p>Válasszon egy asztalt!</p>
-    </div>
-</div>
 <div class="hall">
   <div class="place" *ngFor="let table of tables">
     <div class="table" (click)="selectTable(table)" [ngClass]="{'selected': this.selectedTableClass.includes(table), 

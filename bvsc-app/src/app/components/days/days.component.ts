@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material';
 import { AppointmentsService } from 'src/app/services/appointments.service';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-days',
@@ -8,6 +9,8 @@ import { AppointmentsService } from 'src/app/services/appointments.service';
   styleUrls: ['./days.component.scss']
 })
 export class DaysComponent implements OnInit {
+
+  faCalendar = faCalendarAlt;
 
   public nextFiveDays = [];
   public favouritehours = [18, 19, 20];
@@ -28,6 +31,8 @@ export class DaysComponent implements OnInit {
   private fullHall = [];
   private bookedTablesSmallHall = [];
   private bookedTablesBigHall = [];
+
+  private calendarToggle = false
 
   constructor(private appointmentsService: AppointmentsService) { }
 
@@ -55,10 +60,6 @@ export class DaysComponent implements OnInit {
     this.selectedHall = null;
     this.selectedTable = null;
     this.fullHours = [];
-    if (!datepicker) {
-
-      this.dateInput.nativeElement.value = '';
-    }
     this.selectedDayClass = timestamp;
     const time = new Date(timestamp);
     const day = time.getDate();
@@ -104,9 +105,10 @@ export class DaysComponent implements OnInit {
   }
 
 
-  addEvent(event: MatDatepickerInputEvent<Date>) {
+  addEvent(event) {
     this.selectedDayClass = null;
-    this.findDay(event.value.getTime(), true);
+    this.findDay(event.getTime(), true);
+    this.calendarToggle = false;
   }
 
   confirmBooking() {
@@ -120,5 +122,9 @@ export class DaysComponent implements OnInit {
       table: this.selectedTable
     }
     this.appointmentsService.postAppointment(appointment);
+  }
+
+  openToggle() {
+    this.calendarToggle = !this.calendarToggle;
   }
 }

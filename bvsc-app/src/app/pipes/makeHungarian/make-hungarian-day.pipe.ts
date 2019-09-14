@@ -6,7 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MakeHungarianDayPipe implements PipeTransform {
 
   transform(timestamp: number): string {
-    return this.findHungarianDay(new Date(timestamp).getDay());
+    if (new Date(timestamp).getDay() === new Date().getDay()) {
+      return 'Ma';
+    } else {
+      return this.findHungarianDay(new Date(timestamp).getDay());
+    }
   }
 
   findHungarianDay(day: number) {
@@ -16,7 +20,7 @@ export class MakeHungarianDayPipe implements PipeTransform {
       case 2:
         return 'K';
       case 3:
-        return 'SZe';
+        return 'Sze';
       case 4:
         return 'Cs';
       case 5:

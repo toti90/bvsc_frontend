@@ -1,50 +1,91 @@
-.selection-template {
-  height: 50px;
-  width: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .number {
-    width: 10%;
-    height: 80%;
-    background-color: rgb(102, 97, 182);
-    border-radius: 150px;
-    font-size: 1.2em;
-    font-weight: bold;
-    text-align: center;
-    line-height: 40px;
-
-    
+.main_container {
+  width: 50%;
+  margin: auto;
+  @media screen and (max-width: 600px) {
+    margin: auto;
+    width: 100%;
+    font-size: 0.8em;
   }
+    .stepper_container {
+      width: 100%;
+      margin-bottom: 5px;
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
 
-  .sentences {
-    width: 80%;
-    height: 100%;
-    padding-left: 5%;
+      .first_line {
+        display:flex;
+      }
 
-    p {
-      font-size: 1.2em
+      .line {
+        width: 10%;
+        min-width: 50px;
+        height: 50px;
+
+        .line_1 {
+          border-right: 1px solid #007e90;
+          width:49%;
+          height: 100%;
+        }
+      }
+
+      .buttons {
+        width: 90%;
+        display: flex;
+        align-items: center;
+
+        button {
+          height: 35px;
+          min-width: 40px;
+          outline: none;
+          padding: 0 8px;
+          cursor: pointer;
+          color: #007e90;
+          border: 1px solid #007e90;
+          font-size: 1em;
+          
+          
+        }
+        .selected {
+          background-color: #007e90;
+          color: #fff;
+        }
+
+        .full {
+          background-color: red;
+          color: #fff;
+          border-color: red;
+        }
+      }
     }
   }
+
+
+
+
+
+
+.first_buttons:nth-of-type(1) {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  margin-left: 20px;
+  @media screen and (max-width: 600px) {
+    margin-left: 0;
+  }
+}
+.last_button, .hall:nth-of-type(2) {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
-.selected {
-  background-color: grey;
+mat-calendar {
+  width: 240px;
+  box-shadow: 1px 1px 3px #007e90;
+  border: none;
+  margin-left: 70px;
+  margin-top:-7px;
+  @media screen and (max-width: 600px) {
+    margin-left: 48px;
+  }
 }
 
-.full {
-  background-color: red;
-}
-
-button {
-  height: 35px;
-  min-width: 70px;
-  margin-right:2px;
-  margin-top: 15px;
-  outline: none;
-}
-
-mat-form-field {
-  margin-left: 50px;
-}

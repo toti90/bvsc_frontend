@@ -1,58 +1,145 @@
-<div>
-  <div class="selection-template">
-    <div class="number">1</div>
-    <div class="sentences">
-      <p>Válasszon egy napot!</p>
+<div class="main_container">
+  <div class="one_step_container">
+    <app-stepper-head
+      [stepNumber]="1"
+      [beforeStepString]="'Válasszon egy napot!'"
+      [selectedValue]="selectedDay | date: 'shortDate'"
+      [afterStepString]="'Kiválasztott nap: '"
+    ></app-stepper-head>
+    <div class="stepper_container">
+      <div class="first_line">
+        <div class="line">
+          <div class="line_1"></div>
+        </div>
+        <div class="buttons">
+          <button
+            class="first_buttons"
+            *ngFor="let day of nextFiveDays"
+            (click)="findDay(day, false)"
+            [ngClass]="day === this.selectedDayClass ? 'selected' : ''"
+          >
+            {{ day | makeHungarianDay }}
+          </button>
+          <button class="last_button" (click)="openToggle()">
+            <fa-icon [icon]="faCalendar"></fa-icon>
+          </button>
+        </div>
+      </div>
+      <mat-calendar
+        #calendar
+        [(selected)]="selectedDate"
+        *ngIf="calendarToggle"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        (selectedChange)="addEvent($event)"
+      ></mat-calendar>
     </div>
   </div>
-  <button *ngFor='let day of nextFiveDays' (click)='findDay(day, false)' [ngClass]="day===this.selectedDayClass ? 'selected':''">{{day | makeHungarianDay}}</button>
-  <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
-      (dateInput)="addEvent($event)" autocomplete="off" [min]="minDate" [max]="maxDate" #dateInput disabled>
-      <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-      <mat-datepicker #picker disabled="false"></mat-datepicker>
-  </mat-form-field>
-  <p *ngIf="selectedDay">Kiválasztott nap: {{selectedDay | date:'shortDate'}}</p>
-</div>
-<div *ngIf="this.selectedDay">
-    <div class="selection-template">
-        <div class="number">2</div>
-        <div class="sentences">
-          <p>Válasszon egy kezdési időpontot!</p>
+
+  <div class="one_step_container" *ngIf="selectedDay">
+    <app-stepper-head
+      [stepNumber]="2"
+      [beforeStepString]="'Válasszon egy kezdési időpontot!'"
+      [selectedValue]="selectedHourClass | numberHourConverter"
+      [afterStepString]="'Kiválasztott kezdési időpont: '"
+    ></app-stepper-head>
+    <div class="stepper_container">
+      <div class="first_line">
+        <div class="line">
+          <div class="line_1"></div>
+        </div>
+        <div class="buttons">
+          <button
+            class="first_buttons"
+            *ngFor="let hour of favouritehours"
+            (click)="addStartHour(hour)"
+            [ngClass]="{
+              selected: this.selectedHourClass === hour,
+              full: this.fullHours.includes(hour)
+            }"
+          >
+            {{ hour | numberHourConverter }}
+          </button>
+          <button mat-button [matMenuTriggerFor]="menu" class="last_button">
+            További időpontok
+          </button>
+          <mat-menu #menu="matMenu">
+            <button
+              mat-menu-item
+              *ngFor="let hour of hours"
+              (click)="addStartHour(hour)"
+              [ngClass]="{
+                selected: this.selectedHourClass === hour,
+                full: this.fullHours.includes(hour)
+              }"
+            >
+              {{ hour | numberHourConverter }}
+            </button>
+          </mat-menu>
         </div>
       </div>
-  <button *ngFor='let hour of favouritehours' (click)='addStartHour(hour)' 
-  [ngClass]="{ 
-    'selected': this.selectedHourClass === hour,
-    'full': this.fullHours.includes(hour)
-  }">{{hour | numberHourConverter}}</button>
-  <button mat-button [matMenuTriggerFor]="menu">További időpontok</button>
-  <mat-menu #menu="matMenu">
-  <button mat-menu-item *ngFor='let hour of hours' (click)='addStartHour(hour)' 
-  [ngClass]="{
-    'selected': this.selectedHourClass === hour,
-    'full': this.fullHours.includes(hour)
-  }">{{hour | numberHourConverter}}</button>
-</mat-menu>
-</div>
-<div *ngIf="this.selectedDay && this.selectedHour">
-    <div class="selection-template">
-        <div class="number">3</div>
-        <div class="sentences">
-          <p>Válasszon egy termet!</p>
+    </div>
+  </div>
+
+  <div *ngIf="this.selectedDay && this.selectedHour">
+    <app-stepper-head
+      [stepNumber]="3"
+      [beforeStepString]="'Válasszon egy termet!'"
+      [selectedValue]="selectedHall"
+      [afterStepString]="'Kiválasztott terem: '"
+    ></app-stepper-head>
+    <div class="stepper_container">
+      <div class="first_line">
+        <div class="line">
+          <div class="line_1"></div>
+        </div>
+        <div class="buttons">
+          <button
+            class="first_buttons  hall"
+            *ngFor="let hall of halls"
+            (click)="selectHall(hall)"
+            [ngClass]="{
+              selected: this.selectedHall === hall,
+              full: this.fullHall.includes(hall)
+            }"
+          >
+            {{ hall }}
+          </button>
         </div>
       </div>
-  <button *ngFor='let hall of halls' (click)='selectHall(hall)' [ngClass]="{
-    'selected': this.selectedHall === hall,
-    'full': this.fullHall.includes(hall)
-  }" >{{hall}}</button>
+    </div>
+  </div>
+  <app-stepper-head
+    *ngIf="this.selectedHall && this.selectedDay && this.selectedHour"
+    [stepNumber]="4"
+    [beforeStepString]="'Válasszon egy asztalt!'"
+  ></app-stepper-head>
+  
 </div>
-<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' [bookedTablesHall]='bookedTablesBigHall' *ngIf="this.selectedHall === 'Nagy Terem' && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)" ></app-big-hall>
-<app-big-hall [selectedHour]='selectedHour' [selectedHall]='selectedHall' [bookedTablesHall]='bookedTablesSmallHall' *ngIf="this.selectedHall === 'Kis Terem' && this.selectedDay && this.selectedHour" (selectedTable)="selectTable($event)"></app-big-hall>
-<div *ngIf='selectedTable'>
-  <p>Your selected time is: {{selectedHour | date:'short'}}</p>
-  <p>Table number</p> 
-  <p *ngFor="let selTable of selectedTable">{{selTable}}</p>
-  <p> in the {{this.selectedHall}}</p>
-  <button (click)="confirmBooking()">Confirm</button>
-</div>
+<app-big-hall
+    [selectedHour]="selectedHour"
+    [selectedHall]="selectedHall"
+    [bookedTablesHall]="bookedTablesBigHall"
+    *ngIf="
+      this.selectedHall === 'Nagy Terem' &&
+      this.selectedDay &&
+      this.selectedHour
+    "
+    (selectedTable)="selectTable($event)"
+  ></app-big-hall>
+  <app-big-hall
+    [selectedHour]="selectedHour"
+    [selectedHall]="selectedHall"
+    [bookedTablesHall]="bookedTablesSmallHall"
+    *ngIf="
+      this.selectedHall === 'Kis Terem' && this.selectedDay && this.selectedHour
+    "
+    (selectedTable)="selectTable($event)"
+  ></app-big-hall>
+  <div *ngIf="selectedTable">
+    <p>Your selected time is: {{ selectedHour | date: "short" }}</p>
+    <p>Table number</p>
+    <p *ngFor="let selTable of selectedTable">{{ selTable }}</p>
+    <p>in the {{ this.selectedHall }}</p>
+    <button (click)="confirmBooking()">Confirm</button>
+  </div>
