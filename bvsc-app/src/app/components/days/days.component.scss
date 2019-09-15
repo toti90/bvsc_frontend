@@ -4,16 +4,10 @@
 
   .table_container {
     display: flex;
+    width: 90%;
+    margin: auto;
     flex-direction: column;
     align-items: center;
-    // @media screen and (max-width: 800px) {
-    //   position: absolute;
-    //   top: 0;
-    //   left: 0;
-    // transform: rotate(-90deg);
-    // transform-origin: top center;
-    // }
-
     button {
       margin-top: 20px;
     }
@@ -22,7 +16,7 @@
 .main_container {
   width: 50%;
   margin: auto;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 700px) {
     margin: auto;
     width: 100%;
     font-size: 0.8em;
@@ -89,7 +83,7 @@
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   margin-left: 20px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 700px) {
     margin-left: 0;
   }
 }
@@ -105,7 +99,7 @@ mat-calendar {
   border: none;
   margin-left: 70px;
   margin-top: -7px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width:700px) {
     margin-left: 48px;
   }
 }

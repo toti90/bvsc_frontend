@@ -116,7 +116,7 @@
       [beforeStepString]="'Válasszon egy asztalt!'"
     ></app-stepper-head>
   </div>
-  <div class="table_container">
+  <div class="table_container" *ngIf="this.selectedHall && this.selectedDay && this.selectedHour">
     <app-big-hall
       [selectedHour]="selectedHour"
       [selectedHall]="selectedHall"
