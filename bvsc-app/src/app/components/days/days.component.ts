@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
-import { MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent, MatDialog, MatSnackBar } from '@angular/material';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { PopupConfirmationComponent } from '../popup-confirmation/popup-confirmation.component';
+import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-days',
@@ -34,10 +36,18 @@ export class DaysComponent implements OnInit {
 
   private calendarToggle = false
 
-  constructor(private appointmentsService: AppointmentsService) { }
+  durationInSeconds = 5;
+
+  constructor(private appointmentsService: AppointmentsService, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.generateNextFiveDays();
+  }
+
+  openSnackBar() {
+    this._snackBar.openFromComponent(SnackBarComponent, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
 
   generateNextFiveDays() {
@@ -126,5 +136,28 @@ export class DaysComponent implements OnInit {
 
   openToggle() {
     this.calendarToggle = !this.calendarToggle;
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(PopupConfirmationComponent, {
+      width: '300px',
+      data: {name: 'toti90', selectedHour: this.selectedHour, tables: this.selectedTable}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'ok') {
+        this.confirmBooking();
+        this.openSnackBar();
+        this.selectedHall = null;
+        this.selectedTable = null;
+        this.selectedHourClass = null;
+        this.fullHall = [];
+        this.fullHours = [];
+        this.bookedTablesBigHall = [];
+        this.bookedTablesSmallHall = [];
+        this.selectedDay = null;
+        this.selectedDayClass = null;
+      }
+    });
   }
 }

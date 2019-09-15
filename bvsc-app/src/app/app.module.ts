@@ -14,6 +14,11 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatIconModule} from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StepperHeadComponent } from './components/stepper-head/stepper-head.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { PopupConfirmationComponent } from './components/popup-confirmation/popup-confirmation.component';
+import { FormsModule } from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 
 
 
@@ -25,7 +30,9 @@ import { StepperHeadComponent } from './components/stepper-head/stepper-head.com
     MakeHungarianDayPipe,
     BigHallComponent,
     NumberHourConverterPipe,
-    StepperHeadComponent
+    StepperHeadComponent,
+    PopupConfirmationComponent,
+    SnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +44,13 @@ import { StepperHeadComponent } from './components/stepper-head/stepper-head.com
     MatMenuModule,
     HttpClientModule,
     MatIconModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule,
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ PopupConfirmationComponent, SnackBarComponent]
 })
 export class AppModule { }

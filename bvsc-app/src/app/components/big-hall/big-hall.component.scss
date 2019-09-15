@@ -6,14 +6,13 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  @media screen and (max-width: 800px) {
-    transform-origin: center right;
-    transform: rotate(-90deg);
-    margin-left: 0;
-    margin-right: 20px;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
+  // @media screen and (max-width: 800px) {
+  //   transform: rotate(-90deg);
+  //   margin-left: 0;
+  //   margin-right: 20px;
+  //   margin-top: auto;
+  //   margin-bottom: auto;
+  // }
   .place {
     border: 1px solid red;
     height: 100%;
@@ -34,6 +33,7 @@
     text-align: center;
     line-height: 90px;
     margin: 40% 10%;
+    cursor: pointer;
     @media screen and (max-width: 800px) {
       height: 135px;
       width: 75px;
