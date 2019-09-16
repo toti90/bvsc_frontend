@@ -1,0 +1,42 @@
+form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding-top: 80px;
+  margin: auto;
+
+  mat-form-field {
+
+    button {
+      border: none;
+      background-color: #fff;
+      color: #007e90;
+    }
+  }
+
+  button {
+    height: 35px;
+    width: 40%;
+    min-width: 40px;
+    outline: none;
+    padding: 0 8px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #007e90;
+    font-size: 1em;
+    border: none;
+    margin: auto;
+    border-radius: 5px;
+  }
+
+  button:disabled {
+    border: 1px solid grey;
+    background-color: #fff;
+    color: grey;
+  }
+}
+
+::ng-deep .mat-focused .placeholder{
+  color: #007e90;
+}
+

@@ -1,0 +1,36 @@
+.main_container {
+  min-height: 60px;
+  width: 100%;
+  background-color: rgb(240, 240, 240);
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    height: 40px;
+    margin-left: 50px;
+  }
+
+  .buttons{
+    width: 20%;
+    height: 40px;
+    min-width: 200px;
+
+    button {
+      width: 45%;
+      margin-right: 5%;
+      height: 40px;
+      border-radius: 15px;
+      border: 1px solid #007e90;
+      font-size: 1em;
+      outline: none;
+    }
+
+    button:hover {
+      background-color: #007e90;
+      color: #fff;
+    }
+  }
+
+}

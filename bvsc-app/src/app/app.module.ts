@@ -16,9 +16,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StepperHeadComponent } from './components/stepper-head/stepper-head.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PopupConfirmationComponent } from './components/popup-confirmation/popup-confirmation.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
+import { HeaderComponent } from './components/header/header.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 
@@ -32,8 +34,9 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
     NumberHourConverterPipe,
     StepperHeadComponent,
     PopupConfirmationComponent,
-    SnackBarComponent
-  ],
+    SnackBarComponent,
+    HeaderComponent,
+    RegisterComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -47,7 +50,9 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
     FontAwesomeModule,
     MatDialogModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],

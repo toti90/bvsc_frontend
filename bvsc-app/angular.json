@@ -119,6 +119,12 @@
           }
         }
       }
-    }},
-  "defaultProject": "bvsc-app"
+    }
+  },
+  "defaultProject": "bvsc-app",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "sass"
+    }
+  }
 }
