@@ -1,8 +1,10 @@
 <div class="main_container">
-  <div class="logo_container"><img src="http://www.bvscswimming.hu/img/bvsc-logo2.png" alt="logo"></div>
+  <div class="logo_container" routerLink="/"><img src="http://www.bvscswimming.hu/img/bvsc-logo2.png" alt="logo"></div>
   <div class="buttons">
-    <button class="login">Login</button>
-    <button class="register" routerLink="/register">Registration</button>
+    <button class="login" routerLink="/login" *ngIf="!userEmail">Bejelentkezés</button>
+    <button class="register" routerLink="/register" *ngIf="!userEmail">Regisztráció</button>
+    <button class="appointments" *ngIf="userEmail" routerLink="/appointments">Foglalásaim</button>
+    <button class="logout" *ngIf="userEmail" (click)="logOutUser()">Kilépés</button>
     <button *ngIf="myAppointments" class="my_appointments">Foglalásaim</button>
   </div>
 </div>

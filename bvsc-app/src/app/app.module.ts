@@ -21,6 +21,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { AppointmentsComponent } from './components/appointments/appointments.component';
 
 
 
@@ -36,7 +38,9 @@ import { RegisterComponent } from './components/register/register.component';
     PopupConfirmationComponent,
     SnackBarComponent,
     HeaderComponent,
-    RegisterComponent  ],
+    RegisterComponent,
+    LoginComponent,
+    AppointmentsComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

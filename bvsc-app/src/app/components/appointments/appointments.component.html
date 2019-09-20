@@ -1,0 +1,23 @@
+<app-header></app-header>
+<div class="main_container" *ngIf="appointments">
+  <h1>Saját foglalásaim</h1>
+  <div class="container" *ngFor="let appointment of appointments">
+    <div class="infos">
+      <p>Dátum: {{ appointment.from | date: "shortDate" }}</p>
+      <p>Kezdési időpont: {{ appointment.from | date: "shortTime" }}</p>
+      <p>Befejezési időpont: {{ appointment.to | date: "shortTime" }}</p>
+      <p>Terem: {{ appointment.bigHall ? "Nagy Terem" : "Kis Terem" }}</p>
+    </div>
+    <div class="tables_container">
+        <h3>Lefoglalt asztalok:</h3>
+        <div *ngFor="let table of appointment.table" class="tables">
+          <p>{{ table }}</p>
+          <button (click)="oneTableDelete(appointment, table)"><fa-icon [icon]="faTrashAlt"></fa-icon></button>
+        </div>
+        <button (click)="allTableDelete(appointment)">Összes Asztal Lemondás</button>
+    </div>
+    
+    
+  </div>
+  <h3 *ngIf="appointments.length === 0">Jelenleg nincs lefoglalt asztalod</h3>
+</div>

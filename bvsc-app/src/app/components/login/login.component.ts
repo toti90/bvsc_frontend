@@ -5,11 +5,11 @@ import { faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   faEyeSlash = faEyeSlash;
   faEye = faEye;
@@ -41,12 +41,12 @@ export class RegisterComponent implements OnInit {
     return this.registrationForm.controls[controlName].hasError(errorName);
   }
 
-  public registerUser(form: FormGroup) {
+  public loginUser(form: FormGroup) {
     const user = {
       email: form['email'],
       password: form['password'],
     }
-    this.authenticationService.userAuth(user, 'register');
+    this.authenticationService.userAuth(user, 'login');
   }
 
 }

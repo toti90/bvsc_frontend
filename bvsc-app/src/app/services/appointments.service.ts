@@ -27,4 +27,19 @@ export class AppointmentsService {
       headers: { 'content-type': 'application/json' }
     }).subscribe(response => {}, err => console.log(err));
   }
+
+  getAppointmentsForUser(userId: string) {
+    return this.http.get(`${environment.serverURL}/appointments/${userId}`, {
+      headers: { 'content-type': 'application/json' }
+    })
+  }
+
+  deleteAppointment(id: string, table?: number[]) {
+    let url = `${environment.serverURL}/appointments/?id=${id}`;
+    if (table !== undefined) {
+      url += `&table=${table}`;
+    }
+    console.log(url)
+    return this.http.delete(url, {headers: { 'content-type': 'application/json' }})
+  }
 }

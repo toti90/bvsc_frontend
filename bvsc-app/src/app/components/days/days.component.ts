@@ -4,6 +4,7 @@ import { AppointmentsService } from 'src/app/services/appointments.service';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { PopupConfirmationComponent } from '../popup-confirmation/popup-confirmation.component';
 import { SnackBarComponent } from '../snack-bar/snack-bar.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-days',
@@ -38,7 +39,8 @@ export class DaysComponent implements OnInit {
 
   durationInSeconds = 5;
 
-  constructor(private appointmentsService: AppointmentsService, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
+  constructor(private appointmentsService: AppointmentsService, public dialog: MatDialog, 
+    private _snackBar: MatSnackBar, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.generateNextFiveDays();
@@ -125,11 +127,15 @@ export class DaysComponent implements OnInit {
     let finishTime = new Date(this.selectedHour);
     finishTime.setHours(this.selectedHour.getHours() + 1);
     const isBigHall = this.selectedHall === 'Nagy Terem' ? true : false;
+    const userId = this.authenticationService.getUserIdLocal();
+    const userEmail = this.authenticationService.getUserEmailLocal();
     const appointment = {
       from: this.selectedHour,
       to: finishTime,
       bigHall: isBigHall,
-      table: this.selectedTable
+      table: this.selectedTable,
+      user: userId,
+      email: userEmail
     }
     this.appointmentsService.postAppointment(appointment);
   }
@@ -139,9 +145,11 @@ export class DaysComponent implements OnInit {
   }
 
   openDialog() {
+    let finishTime = new Date(this.selectedHour);
+    finishTime.setHours(this.selectedHour.getUTCHours());
     const dialogRef = this.dialog.open(PopupConfirmationComponent, {
       width: '300px',
-      data: {name: 'toti90', selectedHour: this.selectedHour, tables: this.selectedTable}
+      data: {name: 'toti90', selectedHour: finishTime, tables: this.selectedTable.sort((a,b)=> a-b)}
     });
 
     dialogRef.afterClosed().subscribe(result => {

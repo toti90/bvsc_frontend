@@ -1,0 +1,33 @@
+<form [formGroup]="registrationForm" (ngSubmit)="loginUser(registrationForm.value)">
+    <mat-form-field>
+      <input matInput formControlName="email" autocomplete="off" />
+      <mat-placeholder class="placeholder">Email</mat-placeholder>
+      <mat-error *ngIf="hasError('email', 'required')"
+        >Email is required</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="password"
+        [type]="hide ? 'password' : 'text'"
+      />
+      <mat-placeholder class="placeholder">Password</mat-placeholder>
+      <mat-error *ngIf="hasError('password', 'required')"
+        >Password is required</mat-error
+      >
+      <button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+        type="button"
+      ><fa-icon *ngIf='hide' [icon]="faEyeSlash"></fa-icon>
+      <fa-icon *ngIf='!hide' [icon]="faEye"></fa-icon>
+      </button>
+    </mat-form-field>
+    <button type="submit" [disabled]="!registrationForm.valid">
+      SIGN IN
+    </button>
+  </form>
+  

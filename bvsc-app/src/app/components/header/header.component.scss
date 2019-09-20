@@ -7,9 +7,15 @@
   align-items: center;
   justify-content: space-between;
 
+  div {
+    outline: none;
+  }
+
   img {
     height: 40px;
     margin-left: 50px;
+    cursor: pointer;
+    
   }
 
   .buttons{
@@ -25,6 +31,7 @@
       border: 1px solid #007e90;
       font-size: 1em;
       outline: none;
+      cursor: pointer;
     }
 
     button:hover {
