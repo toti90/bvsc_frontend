@@ -25,8 +25,10 @@ export class AppointmentsComponent implements OnInit {
     this.appointmentsService.getAppointmentsForUser(this.userId).subscribe(response => {
       this.appointments = response;
       this.appointments.forEach(app => {
+        app.fromConverted = `${app.from.split('T')[1].split(':')[0]}:00 - ${app.to.split('T')[1].split(':')[0]}:00`;
         app.table.sort((a,b) => a-b);
       })
+
     }, err => console.log(err));
   }
 
